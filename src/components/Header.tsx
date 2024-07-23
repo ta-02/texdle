@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { BsPatchQuestion } from "react-icons/bs";
+import { Instructions } from "./Instructions";
 
-const Header = () => {
+export const Header = () => {
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
   const toggleInstructions = () => setIsInstructionsOpen(!isInstructionsOpen);
   return (
-    <header>
-      <button onClick={toggleInstructions}>
+    <header className="flex justify-between items-center text-center mt-4">
+      <button className="p-4" onClick={toggleInstructions}>
         <BsPatchQuestion />
       </button>
-
-      <h1>texdle</h1>
+      <Instructions isOpen={isInstructionsOpen} onClose={toggleInstructions} />
+      <h1 className="text-lg p-4">texdle</h1>
+      <a className="p-4" href="https://github.com/ta-02/texdle" target="_blank">
+        <FaGithub />
+      </a>
     </header>
   );
 };
-
-export default Header;
