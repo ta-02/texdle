@@ -1,9 +1,11 @@
 import { Header } from "./components/Header";
+import { WordRows } from "./components/WordRows";
 
 function App() {
   return (
-    <div className="flex items-start justify-center h-screen">
+    <div className="flex flex-col items-center justify- h-screen">
       <Header />
+      <WordRows />
     </div>
   );
 }
