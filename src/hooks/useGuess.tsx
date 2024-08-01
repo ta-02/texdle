@@ -4,7 +4,7 @@ import { WORD_LENGTH } from "../utils/utils";
 export const useGuess = (): [
   string,
   React.Dispatch<React.SetStateAction<string>>,
-  (c: string) => void
+  (c: string) => void,
 ] => {
   const [guess, setGuess] = useState("");
 
