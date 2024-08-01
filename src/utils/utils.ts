@@ -8,16 +8,28 @@ export const getRandomWord = () => {
 
 export type LetterState = "Miss" | "Present" | "Match";
 
-const computeLetterState = (g: string, a: string): LetterState => {};
-
 export const computeGuess = (guess: string, answer: string): LetterState[] => {
-  const result: LetterState[] = [];
+  const letterState: LetterState[] = new Array(WORD_LENGTH).fill("Miss");
+  const answerCharCount: Record<string, number> = {};
 
-  if (guess.length !== answer.length) {
-    return result;
-  }
-  const guessArray = guess.split("");
-  const answerArray = answer.split("");
+  guess.split("").forEach((char, i) => {
+    if (char === answer[i]) {
+      letterState[i] = "Match";
+    } else {
+      answerCharCount[answer[i]] = (answerCharCount[answer[i]] || 0) + 1;
+    }
+  });
 
-  for (let i = 0; i < guessArray.length; i++) {}
+  guess.split("").forEach((char, i) => {
+    if (letterState[i] === "Miss" && answerCharCount[char]) {
+      letterState[i] = "Present";
+      answerCharCount[char]--;
+    }
+  });
+
+  return letterState;
+};
+
+export const isValidWord = (guess: string): boolean => {
+  return wordBank.valid.includes(guess);
 };
