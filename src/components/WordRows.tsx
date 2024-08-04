@@ -9,14 +9,11 @@ export const WordRows = ({
   result?: LetterState[];
   className?: string;
 }) => {
-  const lettersRemaining = WORD_LENGTH - letters.length;
-  const showLetters = letters
-    .split("")
-    .concat(Array(lettersRemaining).fill(""));
+  const paddedLetters = letters.padEnd(WORD_LENGTH);
 
   return (
     <div className={className}>
-      {showLetters.map((c, i) => (
+      {paddedLetters.split("").map((c, i) => (
         <CharBox key={i} value={c} state={result ? result[i] : undefined} />
       ))}
     </div>
