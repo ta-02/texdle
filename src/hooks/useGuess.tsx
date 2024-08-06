@@ -9,12 +9,13 @@ export const useGuess = (): [
   const [guess, setGuess] = useState("");
 
   const addGuessLetter = (c: string) => {
+    console.log(c);
     setGuess((currGuess) => {
-      if (c === "Backspace") {
+      if (c === "") {
         return currGuess.slice(0, -1);
       }
 
-      if (c === "Enter" && currGuess.length === WORD_LENGTH) {
+      if (c === "ENTER" && currGuess.length === WORD_LENGTH) {
         return "";
       }
 
