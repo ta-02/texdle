@@ -26,7 +26,7 @@ export const useStore = create<StoreState>()(
       keyboardLetterState: {},
       gameState: "playing",
       addGuess: (guess: string) => {
-        const result = computeGuess(guess, get().answer);
+        const result = computeGuess(guess.toLowerCase(), get().answer);
         const didWin = result.every((l) => l === "Match");
 
         const rows = [...get().rows, { guess, result }];

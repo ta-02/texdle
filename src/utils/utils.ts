@@ -31,5 +31,5 @@ export const computeGuess = (guess: string, answer: string): LetterState[] => {
 };
 
 export const isValidWord = (guess: string): boolean => {
-  return wordBank.valid.includes(guess);
+  return wordBank.valid.includes(guess.toLowerCase());
 };
