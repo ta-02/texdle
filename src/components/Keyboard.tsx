@@ -2,35 +2,32 @@ import { useStore } from "../utils/store";
 import { LetterState } from "../utils/utils";
 import { BsFillBackspaceFill } from "react-icons/bs";
 
-export function Keyboard({
-  onClick: onClickProps,
-}: {
-  onClick: (key: string) => void;
-}) {
+export function Keyboard({ onClick }: { onClick: (key: string) => void }) {
   const keyboardLetterState = useStore((s) => s.keyboardLetterState);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { innerText } = e.currentTarget;
     let returnProps = innerText;
-
     if (innerText === "Backspace") {
       returnProps = "Backspace";
     }
-
-    onClickProps(returnProps);
+    onClick(returnProps);
   };
 
   return (
-    <div>
+    <div className="flex flex-col">
       {keyboardKeys.map((keyboardRow, rowIndex) => (
-        <div key={rowIndex} className="flex">
+        <div
+          key={rowIndex}
+          className="flex justify-center mb-2 my-2 space-x-1 text-white"
+        >
           {keyboardRow.map((key, index) => {
             let styles = "rounded font-bold uppercase flex-1 py-2";
 
             const letterState = keyStateStyles[keyboardLetterState[key]];
 
             if (letterState) {
-              styles += ` text-white px-1 ${letterState}`;
+              styles += ` px-1 ${letterState}`;
             } else if (key !== "") {
               styles += " bg-gray-600";
             }
@@ -48,7 +45,7 @@ export function Keyboard({
                 className={styles}
               >
                 {key === "Backspace" ? (
-                  <BsFillBackspaceFill className="w-6 h-6" />
+                  <BsFillBackspaceFill className="w-5 h-5" />
                 ) : (
                   key
                 )}
@@ -62,9 +59,9 @@ export function Keyboard({
 }
 
 const keyboardKeys = [
-  ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-  ["", "a", "s", "d", "f", "g", "h", "j", "k", "l", ""],
-  ["Enter", "z", "x", "c", "v", "b", "n", "m", "Backspace"],
+  ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+  ["", "A", "S", "D", "F", "G", "H", "J", "K", "L", ""],
+  ["Enter", "Z", "X", "C", "V", "B", "N", "M", "Backspace"],
 ];
 
 const keyStateStyles: { [key in LetterState]?: string } = {

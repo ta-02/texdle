@@ -12,7 +12,7 @@ export const WordRows = ({
   const paddedLetters = letters.padEnd(WORD_LENGTH);
 
   return (
-    <div className={className}>
+    <div className={`${className}`}>
       {paddedLetters.split("").map((c, i) => (
         <CharBox key={i} value={c} state={result ? result[i] : undefined} />
       ))}
@@ -28,5 +28,5 @@ const charStateStyles: { [key in LetterState]: string } = {
 
 const CharBox = ({ value, state }: { value: string; state?: LetterState }) => {
   const style = state === undefined ? "" : charStateStyles[state];
-  return <span className={style}>{value}</span>;
+  return <span className={`${style}`}>{value}</span>;
 };

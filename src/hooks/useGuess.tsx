@@ -10,7 +10,7 @@ export const useGuess = (): [
 
   const addGuessLetter = (c: string) => {
     setGuess((currGuess) => {
-      if (c === ("" || "Backspace")) {
+      if (c === "" || c === "Backspace") {
         return currGuess.slice(0, -1);
       }
 
@@ -26,9 +26,14 @@ export const useGuess = (): [
     });
   };
 
+  const isLetter = (str: string) => {
+    return str.length === 1 && str.match(/[a-z]/i);
+  };
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      addGuessLetter(e.key);
+      const letter = isLetter(e.key) ? e.key.toUpperCase() : e.key;
+      addGuessLetter(letter);
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => {

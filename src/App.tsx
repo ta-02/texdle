@@ -38,21 +38,26 @@ function App() {
     }
   }, [guess, addGuess, previousGuess, setGuess]);
 
-  let rows = [...state.rows];
+  const rows = [...state.rows];
   let currRow = 0;
 
   if (rows.length < GUESS_LENGTH) {
     currRow = rows.push({ guess }) - 1;
   }
 
-  const numGuessRemain = GUESS_LENGTH - rows.length;
+  // Ensure there are always 6 rows
+  while (rows.length < GUESS_LENGTH) {
+    rows.push({ guess: "" });
+  }
 
   const isGameOver = state.gameState !== "playing";
 
+  console.log(state.answer);
+
   return (
-    <div className="bg-red-300 flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
       <Header />
-      <main className="grid grid-rows-6 gap-4 mb-4">
+      <main className="flex flex-col items-center space-y-4">
         {rows.map(({ guess, result }, index) => (
           <WordRows
             key={index}
@@ -74,34 +79,27 @@ function App() {
       {isGameOver && (
         <div
           role="modal"
-          className="absolute left-0 right-0 grid w-11/12 grid-rows-4 p-6 mx-auto text-center bg-black border border-gray-500 rounded-lg h-1/2 top-1/4"
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
         >
-          {state.gameState === "won" ? (
-            <span className="pt-12 text-6xl font-semibold text-white">
-              You Won!
-            </span>
-          ) : (
-            <span className="text-4xl font-semibold text-white">
-              Game Over!
-            </span>
-          )}
+          <div className="bg-gray-800 p-4 rounded">
+            {state.gameState === "won" ? (
+              <span className="text-green-500">You Won!</span>
+            ) : (
+              <span className="text-red-500">Game Over!</span>
+            )}
 
-          {state.gameState === "lost" && (
-            <WordRows
-              letters={state.answer}
-              className="items-center justify-items-center"
-            />
-          )}
+            {state.gameState === "lost" && <WordRows letters={state.answer} />}
 
-          <button
-            className="absolute left-0 right-0 block p-2 mx-auto mt-4 font-bold text-white bg-green-500 border border-green-500 rounded top-56 hover:opacity-90 w-28"
-            onClick={() => {
-              state.newGame();
-              setGuess("");
-            }}
-          >
-            NEW GAME
-          </button>
+            <button
+              className="mt-4 px-4 py-2 bg-blue-500 rounded hover:bg-blue-700"
+              onClick={() => {
+                state.newGame();
+                setGuess("");
+              }}
+            >
+              NEW GAME
+            </button>
+          </div>
         </div>
       )}
     </div>
