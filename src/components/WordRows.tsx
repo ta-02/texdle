@@ -30,7 +30,7 @@ const CharBox = ({ value, state }: { value: string; state?: LetterState }) => {
   const style = state === undefined ? "" : charStateStyles[state];
   return (
     <span
-      className={`flex items-center justify-center w-12 h-12 p-4 text-2xl font-bold text-gray-50 text-center before:inline-block before:content-['_'] uppercase border border-gray-500 ${style}`}
+      className={`flex items-center justify-center w-12 h-12 p-4 text-2xl font-bold text-gray-50 text-center before:inline-block before: uppercase border border-gray-500 ${style}`}
     >
       {value}
     </span>

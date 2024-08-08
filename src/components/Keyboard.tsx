@@ -15,14 +15,14 @@ export function Keyboard({ onClick }: { onClick: (key: string) => void }) {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-4">
       {keyboardKeys.map((keyboardRow, rowIndex) => (
         <div
           key={rowIndex}
           className="flex justify-center mb-2 my-2 space-x-1 text-white"
         >
           {keyboardRow.map((key, index) => {
-            let styles = "rounded font-bold uppercase flex-1 py-2";
+            let styles = "rounded font-bold uppercase flex-1 py-2 px-2";
 
             const letterState = keyStateStyles[keyboardLetterState[key]];
 

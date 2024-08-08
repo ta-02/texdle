@@ -45,7 +45,6 @@ function App() {
     currRow = rows.push({ guess }) - 1;
   }
 
-  // Ensure there are always 6 rows
   while (rows.length < GUESS_LENGTH) {
     rows.push({ guess: "" });
   }
@@ -55,7 +54,7 @@ function App() {
   console.log(state.answer);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-neutral-950 text-white">
       <Header />
       <main className="flex flex-col items-center space-y-4">
         {rows.map(({ guess, result }, index) => (
