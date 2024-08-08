@@ -6,6 +6,7 @@ import { useGuess } from "./hooks/useGuess";
 import { usePrevious } from "./hooks/usePrevious";
 import { useEffect, useState } from "react";
 import { isValidWord, WORD_LENGTH } from "./utils/utils";
+import { IoCloseCircle } from "react-icons/io5"; // Ensure you import the icon if needed
 
 function App() {
   const state = useStore();
@@ -51,12 +52,10 @@ function App() {
 
   const isGameOver = state.gameState !== "playing";
 
-  console.log(state.answer);
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-neutral-950 text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-neutral-950 text-white p-4">
       <Header />
-      <main className="flex flex-col items-center space-y-4">
+      <main className="flex flex-col items-center w-full max-w-md space-y-4">
         {rows.map(({ guess, result }, index) => (
           <WordRows
             key={index}
@@ -77,20 +76,29 @@ function App() {
 
       {isGameOver && (
         <div
-          role="modal"
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 flex items-center justify-center bg-neutral-950 bg-opacity-90 p-4"
         >
-          <div className="bg-gray-800 p-4 rounded">
-            {state.gameState === "won" ? (
-              <span className="text-green-500">You Won!</span>
-            ) : (
-              <span className="text-red-500">Game Over!</span>
+          <div className="bg-neutral-950 border border-white rounded-lg shadow-lg w-full max-w-md p-6">
+            <div className="flex justify-between items-center border-b pb-4 mb-4">
+              <h2 className="text-2xl italic font-serif">
+                {state.gameState === "won" ? "You Won!" : "Game Over!"}
+              </h2>
+              <button onClick={() => state.newGame()}>
+                <IoCloseCircle className="text-3xl text-white" />
+              </button>
+            </div>
+            {state.gameState === "lost" && (
+              <div className="font-serif text-center">
+                <p className="mb-4 text-lg">The correct word was:</p>
+                <div className="flex justify-center">
+                  <WordRows letters={state.answer} />
+                </div>
+              </div>
             )}
-
-            {state.gameState === "lost" && <WordRows letters={state.answer} />}
-
             <button
-              className="mt-4 px-4 py-2 bg-blue-500 rounded hover:bg-blue-700"
+              className="mt-4 w-full px-4 py-2 bg-blue-500 rounded hover:bg-blue-700 text-white"
               onClick={() => {
                 state.newGame();
                 setGuess("");
