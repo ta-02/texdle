@@ -39,7 +39,7 @@ export const Instructions = ({
             </span>
             <span>
               The letter <strong>W</strong> is <strong>in</strong> the word but
-              in the <strong className="text-red-500">wrong spot</strong>.
+              in the <strong className="text-yellow-500">wrong spot</strong>.
             </span>
           </p>
           <p className="flex items-center space-x-4">
