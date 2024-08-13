@@ -9,7 +9,6 @@ export const useGuess = (): [
   const [guess, setGuess] = useState("");
 
   const addGuessLetter = (c: string) => {
-    console.log(c);
     setGuess((currGuess) => {
       if (c === "" || c === "Backspace") {
         return currGuess.slice(0, -1);
